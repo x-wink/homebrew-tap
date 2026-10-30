@@ -21,4 +21,5 @@ Codex 接入运行 `pet-hook setup --client codex`,再在 `/hooks` 审查并信�
 
 - pet-hook:cchud 推 `pet-hook-v*` tag 出 Release 后,改 `Formula/pet-hook.rb` 的 `version`、三个 `url` 与 `sha256`(取 Release 里的 `SHA256SUMS`)。
 - oxforge-pet:oxforge 的 `deploy/publish.sh pet` 传完后,改 `Casks/oxforge-pet.rb` 的 `version` 与 `sha256`(取 `https://oxforge.xwink.fun/pet/latest.json`)。
-- 改完 `brew audit --tap x-wink/tap`、`brew fetch` 两样都过再推。
+- 配方改完先过 Ruby 语法检查、核对 Release 的 SHA256；公开 Release 后用 `brew fetch` 验证下载。跨平台分别指定 `--os=macos --arch=arm`、`--os=macos --arch=intel`、`--os=linux --arch=intel`，避免 `--all-platforms` 尝试没有产物的 Linux ARM。
+- 本机不跑 `brew audit` / `brew style` / `brew test`：这些开发命令会安装依赖，曾留下冲突的 Ruby 包并损坏 Homebrew；真实二进制的安装与事件执行由 cchud 的回归及发行冒烟验证。
