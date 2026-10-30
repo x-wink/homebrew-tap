@@ -1,24 +1,24 @@
 class PetHook < Formula
-  desc "Claude Code hook writer for the cchud status line and the oxforge-pet desktop pet"
+  desc "Claude Code / Codex 会话状态钩子，供 cchud 与桌宠读取"
   homepage "https://github.com/x-wink/cchud"
-  version "0.1.0"
+  version "0.2.0"
   license "MIT"
 
   on_macos do
     on_arm do
-      url "https://github.com/x-wink/cchud/releases/download/pet-hook-v0.1.0/pet-hook-macos-arm64"
-      sha256 "b51b000b701ca33f8e9714f98784f317e08078e3ed15fa9d77aceebac402d21e"
+      url "https://github.com/x-wink/cchud/releases/download/pet-hook-v0.2.0/pet-hook-macos-arm64"
+      sha256 "05e0c9662af8c50bd9096a3983b0ee2a128aa8443e06ba1ef2b2cd337234e9f3"
     end
     on_intel do
-      url "https://github.com/x-wink/cchud/releases/download/pet-hook-v0.1.0/pet-hook-macos-x86_64"
-      sha256 "a9cdbc0a211d61cc51d488c3ae887bc6d97df6109aab296882044d212bcbd2ad"
+      url "https://github.com/x-wink/cchud/releases/download/pet-hook-v0.2.0/pet-hook-macos-x86_64"
+      sha256 "462f9302fcab785c36035c419bbd78ad0e1727908c8e77399fb510b5b930444a"
     end
   end
 
   on_linux do
     on_intel do
-      url "https://github.com/x-wink/cchud/releases/download/pet-hook-v0.1.0/pet-hook-linux-x86_64"
-      sha256 "28be0edd5e1a23341ecd41005fdc154eb9b7ccbdca81017facd7efd53342b4aa"
+      url "https://github.com/x-wink/cchud/releases/download/pet-hook-v0.2.0/pet-hook-linux-x86_64"
+      sha256 "fe7946a9b00621bb455d8c3f5d08f577f6af78384785ec24fd23dbdefd20c2c3"
     end
   end
 
@@ -36,7 +36,9 @@ class PetHook < Formula
     <<~EOS
       把九个事件的钩子写进 Claude Code 的 settings.json(写前备份 .bak):
         pet-hook setup
-      只看会改什么:pet-hook setup --dry-run;卸载钩子:pet-hook setup --uninstall
+      Codex 接入:pet-hook setup --client codex;两端同时:pet-hook setup --client all
+      Codex 新增钩子需在 /hooks 审查并信任。
+      预览加 --dry-run;卸载加 --uninstall(与 --client 一起使用)。
     EOS
   end
 
@@ -45,5 +47,8 @@ class PetHook < Formula
     (testpath/"settings.json").write("{}")
     system bin/"pet-hook", "setup", "--settings", testpath/"settings.json"
     assert_match "pet-hook", (testpath/"settings.json").read
+    system bin/"pet-hook", "setup", "--client", "codex", "--settings", testpath/"hooks.json"
+    assert_match "PermissionRequest", (testpath/"hooks.json").read
+    assert_match "--client codex", (testpath/"hooks.json").read
   end
 end

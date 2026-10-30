@@ -4,8 +4,8 @@ x-wink 的 Homebrew 软件源。
 
 | 名字 | 是什么 | 装法 |
 | --- | --- | --- |
-| `pet-hook` | Claude Code 的钩子写方:每个事件把「此刻在干嘛」写进 `~/.cchud/state/`,[cchud](https://github.com/x-wink/cchud) 状态栏与 oxforge-pet 都读它。开源(MIT) | `brew install x-wink/tap/pet-hook` |
-| `oxforge-pet` | 常驻桌面的像素小兽,随 Claude Code 会话换姿势与颜色。免费、闭源,[下载页](https://oxforge.xwink.fun/pet/) | `brew install --cask x-wink/tap/oxforge-pet` |
+| `pet-hook` | Claude Code / Codex 的钩子写方:每个事件把「此刻在干嘛」写进 `~/.cchud/state/`,[cchud](https://github.com/x-wink/cchud) 状态栏与 oxforge-pet 都读它。开源(MIT) | `brew install x-wink/tap/pet-hook` |
+| `oxforge-pet` | 常驻桌面的像素小兽,随 Claude Code / Codex 会话换姿势与颜色。免费、闭源,[下载页](https://oxforge.xwink.fun/pet/) | `brew install --cask x-wink/tap/oxforge-pet` |
 
 两样一起装:
 
@@ -14,6 +14,8 @@ brew install x-wink/tap/pet-hook
 pet-hook setup
 brew install --cask x-wink/tap/oxforge-pet
 ```
+
+Codex 接入运行 `pet-hook setup --client codex`,再在 `/hooks` 审查并信任;两端同时配置用 `--client all`。
 
 ## 维护
 
